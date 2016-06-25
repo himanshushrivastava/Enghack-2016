@@ -3,12 +3,27 @@ from trello import TrelloApi
 trello = TrelloApi('a4ae903d87894a87ba4c6a7b7bf617bd')
 token_url = trello.get_token_url('Trello Application', expires='30days', write_access=True)
 
-print 'Navigate to the following webpage and click allow to recieve your Trello token'
+user_name = raw_input('Enter user name: ')
+print 'Navigate to the following webpage and click "Allow" to receive your Trello token'
 print token_url
 user_token = raw_input('Enter your token: ')
+
 trello.set_token(user_token)
 
-board_id = '576ec71a66056953359c2bcd'
+boards = trello.members.get_board(user_name)
+print "These are the boards available on your account:\n"
+for board in boards:
+    for key, value in board.items():
+        if key == 'name':
+            print value
+
+board_name = raw_input('\nEnter the board for which you want generate a report: ')
+
+for board in boards:
+    for key, value in board.items():
+        if key == 'name' and value == board_name:
+            board_id = board['id']
+
 
 board = trello.boards.get(board_id)
 card_lists = trello.boards.get_list(board_id)
