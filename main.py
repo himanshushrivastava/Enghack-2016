@@ -11,7 +11,7 @@ user_token = raw_input('Enter your token: ')
 trello.set_token(user_token)
 
 boards = trello.members.get_board(user_name)
-print "These are the boards available on your account:\n"
+print "\nThese are the boards available on your account:\n"
 for board in boards:
     for key, value in board.items():
         if key == 'name':
