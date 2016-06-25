@@ -4,9 +4,9 @@ trello = TrelloApi('a4ae903d87894a87ba4c6a7b7bf617bd')
 token_url = trello.get_token_url('Trello Application', expires='30days', write_access=True)
 
 user_name = raw_input('Enter user name: ')
-print 'Navigate to the following webpage and click "Allow" to receive your Trello token'
+print '\nNavigate to the following webpage and click "Allow" to receive your Trello token:\n'
 print token_url
-user_token = raw_input('Enter your token: ')
+user_token = raw_input('\nEnter your token: ')
 
 trello.set_token(user_token)
 
