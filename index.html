@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Trello App</title>
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="src/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="src/js/jquery-1.12.3.min.js"></script>
+  </head>
+  <body>
+  	<script type="text/javascript" src="src/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="src/js/jquery-1.12.3.min.js"></script>
+
+    <!-- START JUMBOTRON -->
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1>Trello <span style="color: #730500;">Application</span></h1>
+        <p>Enter your trello account information, and the email where you would like your report sent.</p>
+      </div>
+    </div>
+    <!-- END JUMBOTRON -->
+
+        <!-- START CONTACT -->
+    <div style="background-color: white">
+      <div class="container">
+        <section>
+          <div class="page-header" id="contact">
+            <h2>Enter your information</h2>
+            <h4>Your information will not be shared with anyone. This is a completely private process.</h4>
+          </div>
+          <form class="form-horizontal" role="form" method="post" action="">
+            <div class="form-group">
+              <label for="username" class="col-sm-2 control-label">Trello Username</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Himanshu Shrivastava" value="">
+                <!-- <?php echo "<p class='text-danger'>$error_name</p>";?> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-sm-2 control-label">Trello Password</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="password" name="password" placeholder="thIsApp15AweS0me!" value="">
+                <!-- <?php echo "<p class='text-danger'>$error_email</p>";?> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-sm-2 control-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" placeholder="himanshu@hshrivastava.com" value="">
+                <!-- <?php echo "<p class='text-danger'>$error_message</p>";?> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-2">
+                <p><input id="submit" name="submit" type="submit" value="Submit" class="btn btn-primary"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-2">
+                <!-- <?php echo $result; ?>   -->
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+    <!-- END CONTACT -->
+  </body>
+</html>
