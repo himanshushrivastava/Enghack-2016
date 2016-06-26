@@ -2,6 +2,29 @@ from trello import TrelloApi
 import webbrowser
 import os
 import time
+from datetime import datetime, timedelta
+from urllib import quote
+
+def convert_strftime( card_id ):
+    card_id = card_id[:8]
+    card_id = int(card_id, 16)
+    #print card_id
+    create_time = time.strftime('%Y-%m-%d', time.localtime(card_id))
+    #print create_time
+    return create_time
+
+def is_in_week( create_time ):
+    create_time = datetime.strptime(create_time, '%Y-%m-%d').date()
+    #print "create_time: %s" %create_time
+    dt = datetime.today().date()
+    #print "dt: %s" %dt
+    start = dt - timedelta(days=dt.weekday())
+    #print "start: %s" %start
+    # end = start + timedelta(days=6)
+    if create_time >= start and create_time <= dt:
+        return True
+    else:
+        return False
 
 trello_report = open('trello_report.html', 'w')
 
@@ -49,6 +72,7 @@ html = """
 """
 
 content = 'New line test \n'
+cards = []
 
 for card_list in card_lists:
     html = html + '<p><strong>%s</strong></p>' % card_list['name']
@@ -56,9 +80,11 @@ for card_list in card_lists:
     content = content + '%s\n' % card_list['name']
     cards = trello.lists.get_card(card_list['id'])
     for card in cards:
-        card_values = trello.cards.get_field('name', card['id'])
-        html = html + '<li>%s</li>' % card_values['_value']
-        content = content + '\n- %s\n' % card_values['_value']
+        #print "------------card--------------"
+        if is_in_week(convert_strftime(card['id'])):
+            card_values = trello.cards.get_field('name', card['id'])
+            html = html + '<li>%s</li>' % card_values['_value']
+            content = content + '\t- %s\n' % card_values['_value']
     html = html + '</ul>'
 
 html = html + """
@@ -79,4 +105,4 @@ email_list = ['hs.1271@yahoo.com', 'himanshu.shrivastava12@gmail.com']
 recipients = ';'.join(email_list)
 subject = 'Status for %s, week ending %s' % (user, time.strftime("%x"))
 
-webbrowser.open('mailto:%s?subject=%s&body=%s' % (recipients, subject, content), new=1)
+webbrowser.open('mailto:%s?subject=%s&body=%s' % (recipients, subject, quote(content)), new=1)
