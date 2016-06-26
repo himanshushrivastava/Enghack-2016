@@ -8,19 +8,13 @@ from urllib import quote
 def convert_strftime( card_id ):
     card_id = card_id[:8]
     card_id = int(card_id, 16)
-    #print card_id
     create_time = time.strftime('%Y-%m-%d', time.localtime(card_id))
-    #print create_time
     return create_time
 
 def is_in_week( create_time ):
     create_time = datetime.strptime(create_time, '%Y-%m-%d').date()
-    #print "create_time: %s" %create_time
     dt = datetime.today().date()
-    #print "dt: %s" %dt
     start = dt - timedelta(days=dt.weekday())
-    #print "start: %s" %start
-    # end = start + timedelta(days=6)
     if create_time >= start and create_time <= dt:
         return True
     else:
@@ -71,16 +65,16 @@ html = """
     <body>
 """
 
-content = 'New line test \n'
+content = 'Generated from my trello boards:\n'
+
 cards = []
 
 for card_list in card_lists:
     html = html + '<p><strong>%s</strong></p>' % card_list['name']
     html = html + '<ul>'
-    content = content + '%s\n' % card_list['name']
+    content = content + '\n%s\n' % card_list['name']
     cards = trello.lists.get_card(card_list['id'])
     for card in cards:
-        #print "------------card--------------"
         if is_in_week(convert_strftime(card['id'])):
             card_values = trello.cards.get_field('name', card['id'])
             html = html + '<li>%s</li>' % card_values['_value']
@@ -99,9 +93,9 @@ trello_report_path = 'file://' + working_directory + '/trello_report.html'
 trello_report.write(html)
 trello_report.close()
 
-webbrowser.open(trello_report_path, new=2)
+# webbrowser.open(trello_report_path, new=2)
 
-email_list = ['hs.1271@yahoo.com', 'himanshu.shrivastava12@gmail.com']
+email_list = ['customersupport@web.nhl.com', 'himanshu@hshrivastava.com']
 recipients = ';'.join(email_list)
 subject = 'Status for %s, week ending %s' % (user, time.strftime("%x"))
 
